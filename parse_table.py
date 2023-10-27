@@ -13,25 +13,16 @@ class ProgrammingLanguage:
     popularity: int
 
 
-
 url = "https://en.wikipedia.org/wiki/Programming_languages_used_in_most_popular_websites"
 response = requests.get(url)
 html = response.text
-
 soup = BeautifulSoup(html, "html.parser")
-
 table = soup.find("table", {"class": "wikitable"})
-
 
 data = []
 for row in table.find_all("tr")[1:]:
     columns = row.find_all(["th", "td"])
-
-
     name = columns[0].text.strip()
-
-    print(name)
-
 
     if columns[1].find("a"):
         frontend = columns[1].find("a").text.strip()
@@ -61,8 +52,3 @@ for row in table.find_all("tr")[1:]:
 
     data.append(ProgrammingLanguage(name, frontend, backend, popularity))
 
-
-
-print(frontend)
-print(backend)
-print(popularity)
